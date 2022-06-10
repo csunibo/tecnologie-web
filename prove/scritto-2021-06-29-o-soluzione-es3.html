@@ -1,0 +1,218 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            var baseUrl = "www.auto2000.com";
+            var cars = [];
+            var current = 0;
+            var price = 0
+            $("document").ready(initialize);
+            function initialize(){
+                var i = 1;
+                var error = false;
+                while(error && i < 10){
+                    $.get("http://www.fabiovitali.it/TW/test/2021/doResponse.php?id=" + i)
+                    .then((response) =>{
+                        cars = cars.push(response);
+                        i++;
+                    }).catch((err)=>{error=false});
+                    i++;
+                }
+                dummyLoad();
+            }
+
+            function noleggia(){
+                let selectedOpt = {};
+                for (opt in cars[current].car.optionals){
+                    selectedOpt[opt] = $(`input[name = "${opt}"]`).val() || $(`select[name = "${opt}"]`).val();
+                }
+                let rent = {
+                    rent:{
+                        id: current,
+                        optionals: selectedOpt 
+                    }
+                }
+                console.log(rent);
+                $.ajax({
+                    url: "http://www.fabiovitali.it/TW/test/2021/doResponse.php",
+                    method: "POST", 
+                    data: rent
+                });
+            }
+
+            function compute(){
+                var inputs = $("input:checked");
+                price = 0;
+                for(input of inputs){
+                    price += parseFloat($(input).attr("price") || 0);
+                }
+                var inputs = $("option:checked");
+                for(input of inputs){
+                    price += parseFloat($(input).attr("price") || 0);
+                }
+                $("#total").html(price);
+            }
+
+            function parse(data){
+                optionals = data.optionals;
+                string = "";
+                for (opt in optionals){
+                    if(optionals[opt].type != "select"){
+                        string += "<ul>";
+                        for(item in optionals[opt].items){
+                            string += `<li><input type="${optionals[opt].type}" value="${item}" name="${opt}" price="${optionals[opt].items[item]?.price || 0}">
+                                        <label>${item}:${optionals[opt].items[item]?.note || ""} ${optionals[opt].items[item]?.price || ""}</label></li>`
+                        }
+                        string += "</ul>";
+                    }
+                    else if(optionals[opt].type == "select"){
+                        string += `<label>${opt}</label>`;
+                        string += `<select name="${opt}">`;
+                        for (let i = 0; i <= optionals[opt].max; i++) {
+                            string += `<option  value="${i}" price="${optionals[opt].price * i}">${i}</option>
+                                        `
+                        }  
+                        string += "</select>";
+                    }
+                }
+                return string;
+            }
+            // Usata solo a scopo dimostrativo
+            function dummyLoad(){
+                data = {
+                    "car": {
+                        "id": 1,
+                            "last": false,
+                                "name": "Fiat X",
+                                    "price": 37.5,
+                                        "photo": "./img/auto1.jpg",
+                                            "optionals": {
+                            "Allestimento": {
+                                "type": "radio",
+                                    "items": {
+                                    "young": {
+                                        "price": 0
+                                    },
+                                    "business": {
+                                        "price": 28.53,
+                                            "note": "cerchi in lega, etc."
+                                    },
+                                    "cross_country": {
+                                        "price": 35.88,
+                                            "note": "fendinebbia, etc."
+                                    }
+                                }
+                            },
+                            "Navigatore": {
+                                "type": "radio",
+                                    "items": {
+                                    "nessuno": {
+                                        "price": 0
+                                    },
+                                    "Garmin mappe Italia": {
+                                        "price": 18.47
+                                    },
+                                    "TomTom mappe Europa": {
+                                        "price": 23.63
+                                    }
+                                }
+                            },
+                            "Altro": {
+                                "type": "checkbox",
+                                    "items": {
+                                    "Catene da neve": {
+                                        "price": 9.50,
+                                            "note": "obbligatorie in inverno"
+                                    },
+                                    "Portasci": 12.75,
+                                        "Portabici": 22.50
+                                }
+                            },
+                            "Seggiolini": {
+                                "type": "select",
+                                    "max": 3,
+                                        "price": 26.5,
+                                            "label": "26.50 a seggiolino"
+                            }
+                        }
+                    }
+                };
+                cars = [];
+                cars.push(data);
+                let data1 = JSON.parse(JSON.stringify(data));
+                data1.car.name = "Auto Super";
+                data1.car.photo = "./img/auto2.jpg";
+                cars.push(data1);
+                render(cars[0]);
+            } 
+            
+            function render(element){
+                let form = parse(element.car);
+                element = element.car;
+                let txt = `
+                    <h2>${element.name}</h2>
+                    <img src="${element.photo}">
+                    <p>Prezzo: ${element.price} euro</p>
+                    <form>
+                        ${form}
+                    </form>
+                `;
+                $("#slider").html(txt);
+                compute();
+
+                $("form input, form select").on("change", compute);
+
+            }
+
+            function change(direction){
+                // if(direction == -1 && current == 0)
+                //     current = cars.length; 
+                current = (current + direction + cars.length) % cars.length;
+                render(cars[current]);
+            }
+        </script>
+
+    <style>
+        .nonActive{
+            display: none;
+        }
+        img{
+            max-width: 200px;
+        }
+        #slider ul{
+            list-style: none;
+        }
+        #slider form{
+            text-align: left;
+        }
+    </style>
+        
+</head>
+<body class="container">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                AutoCommercial
+            </a>
+        </div>
+    </nav>
+
+    <main>
+
+        <div id="slider" class="p-5 text-center">
+
+        </div>
+        <p id="total"></p>
+        <button onclick="change(-1)">Auto Precedente</button>
+        <button onclick="noleggia()">Noleggia</button>
+        <button onclick="change(1)">Auto successiva</button>
+    </main>
+
+</body>
+</html>

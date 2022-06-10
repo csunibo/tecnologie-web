@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://www.fabiovitali.it/TW/lib/bootstrap.min.css">
+    <script src="https://www.fabiovitali.it/TW/lib/jquery-3.6.0.js"></script>
+    <script src="https://www.fabiovitali.it/TW/lib/bootstrap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #navbar{
+            padding: 1em;
+            display: flex;
+            justify-content: space-between;
+            background: rgb(134, 6, 6);
+            align-items: center;
+        }
+        #navbar>h1{
+            color:white;
+        }
+        #navbar #Subscibe{
+            padding: 0.5em;
+            background: yellow;
+            color:rgb(134, 6, 6);
+            border-radius: 3px;
+            margin-right: 0.5em;
+        }
+        #navbar #login{
+            padding: 0.5em;
+            background: transparent;
+            color: white;
+            border-radius: 3px;
+        }
+        .header>ul{
+            margin-top: 1em;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+        }
+        .header>ul>li{
+            list-style-type: none;
+        }
+        main{
+            width: 70vw;
+            margin: auto;
+            margin-top: 2em;
+        }
+        main header{
+            background-color: rgb(134, 6, 6);
+            padding: 1em;
+            text-align: center;
+        }
+        
+        .modal-header{
+            text-align: center;
+        }
+        .modal-title{
+            color:rgb(134, 6, 6);
+            text-align: center;
+            font-weight: bold;
+        }
+        #modalEmail{
+            width: 100%;
+            padding: 0.5em 0;
+        }
+        input[type="checkbox"]{
+            text-align: center;
+        }
+        .modal-body p{
+            text-align: center;
+        }
+        #submitModal{
+            padding: 0.5em;
+            background-color: rgb(134, 6, 6);
+            color: white;
+            position: absolute;
+            left: 40%;
+            width: 20%
+        }
+        .buttonModal{
+            position: relative;
+            padding-bottom: 4em;
+        }
+        #submitModal:hover{
+            background-color: white;
+            color: rgb(134, 6, 6);
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <nav id="navbar">
+        <h1>Decanter</h1>
+        <div class="button">
+            <button id="Subscibe">Subscibe now</button>
+            <button id="login"> Login </button>
+        </div>
+    </nav>
+    <div class="header">
+        <ul>
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+        </ul>
+    </div>
+    <main>
+        <header>
+            Some text covered
+        </header>
+        <div class="content">
+            <nav>
+                <a href="">Home</a>
+                <a href="">Learn</a>
+            </nav>
+            <h2>Wine Leager text covered</h2>
+            <p>A wine idk i cant read damn modal</p>
+            <img src="" alt="foto_profilo">
+        </div>
+    </main>
+
+
+    <div class="modal" tabindex="-1" id="exampleModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Decanter Newsletter</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Get our daily fine wine ecc ecc</p>
+              <input type="text" placeholder="Email" id="modalEmail">
+              <label><input type="checkbox" name="radiobtn">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque perspiciatis eligendi velit deserunt non cumque.</label><br/>
+              <label><input type="checkbox" name="radiobtn">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos, officia.</label>
+                <p>By submitting ecc ecc</p>
+                <div class="buttonModal"><button id="submitModal">Sign up</button></div>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    
+      <button type="button" id="launch" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none">
+        Launch demo modal
+      </button>
+      <script>
+            var btn = document.getElementById('launch');
+            btn.click();
+      </script>
+</body>
+</html>

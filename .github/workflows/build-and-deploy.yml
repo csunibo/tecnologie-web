@@ -6,7 +6,7 @@ on:
     branches: main
 
 env:
-  REGEX_INCLUDE: "\.(pdf|link|txt|html|css|js|zip)$" 
+  REGEX_INCLUDE: "\\.(pdf|link|txt|html|css|js|zip)$" 
 
 jobs:
   build:

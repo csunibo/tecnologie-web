@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Web component</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style>
+		main {
+			min-height: 75rem;
+			padding-top: 4.5rem;
+		}	
+	
+	</style>
+</head>
+<body>
+
+	<!-- Navbar -->
+	<app-navbar title="Web Component">
+		<app-menu title="Io sono un menù">
+			<app-item>
+				<app-activate ref="modal1">Prima modale</app-activate>
+			</app-item>
+			<app-item>
+				<app-activate ref="modal2">Seconda modale</app-activate>
+			</app-item>
+			<app-separator></app-separator>
+			<app-item>
+				<app-activate ref="modal3">Terza modale modale</app-activate>
+			</app-item>
+		</app-menu>
+		<app-navbar-item ref="info">Info</app-navbar-item>
+	</app-navbar>
+	
+	<!-- Main -->
+	<main class="container">
+		<div class="bg-light p-5 rounded">
+			<h1>Esempio di componenti - </h1>
+			<p class="lead"></p>
+		</div>
+	</main>
+
+
+	<!-- Modal -->
+	<app-modal id="modal1" title="Prima modale">
+        <p>Qui ci metto il testo della prima modale. Può essere anche roba molto lunga.</p>
+	</app-modal>
+
+	<app-modal id="modal2" title="Seconda modale">
+        <p>Qui ci metto il testo della seconda modale.</p>
+        <p style="margin-top: 30em;">Facciamo una roba un po' altina</p>
+	</app-modal>
+
+	<app-modal id="modal3" title="Terza modale">
+      	<h2 class="text-center">Senza fantasia</h2>
+        <p>Qui ci metto il testo della terza modale. Non so proprio che metterci.</p>
+	</app-modal>
+
+	<app-modal id="info" title="Info su questo esempio">
+		<p>Questo è uno degli esempi di applicazione dei framework di componenti per gli studenti di TW.</p>
+		<p class="small text-end">© Fabio Vitali, 2022</p>
+	</app-modal>
+
+
+<!--  Templates -->
+ 	
+<template id="app-modal">
+	<div class="modal fade" id="{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" 
+		 tabindex="-1" aria-labelledby="{{id}}Label" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="{{id}}Label">{{title}}</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		  </div>
+		  <div class="modal-body">
+			<slot>Default content</slot>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</template>
+
+<template id="app-navbar">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">{{title}}</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+				data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
+				aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav me-auto mb-2 mb-md-0">
+				<slot></slot>
+			</ul>
+		</div>
+	</div>
+</nav>
+</template>
+
+
+<template id="app-menu">
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" 
+		role="button" data-bs-toggle="dropdown" aria-expanded="false">{{title}}</a>
+		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			<slot></slot>
+		</ul>
+	</li>
+</template>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="./webComponent.js"></script>
+	<script>
+		AddToContent('h1',"Web component")
+		AddToContent('.lead',"Questo esempio usa Bootstrap con Web Component. E' ancora tutto HTML e Bootstrap")
+	
+		CreateCustomElement('app-navbar')
+		CreateCustomElement('app-menu')
+		CreateCustomElement('app-item', `<li><slot></slot></li>`)
+		CreateCustomElement('app-navbar-item', `
+			<li class="nav-item">
+				<a class="nav-link active" href="#" data-bs-toggle="modal" data-bs-target="#{{ref}}"><slot></slot></a>
+			</li>`)
+		CreateCustomElement('app-separator',`<li><hr class="dropdown-divider"></li>`)
+		CreateCustomElement('app-modal')
+		CreateCustomElement('app-activate', `<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#{{ref}}"><slot></slot></a>`)
+		
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<app-navbar [title]="appName">
+  <app-menu title="Io sono un menù">
+    <app-item>
+      <app-activate dest="modal1">Prima modale</app-activate>
+    </app-item>
+    <app-item>
+      <app-activate dest="modal2">Seconda modale</app-activate>
+    </app-item>
+    <app-separator></app-separator>
+    <app-item>
+      <app-activate dest="modal3">Terza modale</app-activate>
+    </app-item>
+  </app-menu>
+  <app-navbar-item dest="info">Info</app-navbar-item>
+</app-navbar>
+
+<!-- Main -->
+<main class="container">
+  <div class="bg-light p-5 rounded">
+    <h1>Esempio di componenti - {{appName}}</h1>
+    <p class="lead">{{explanation}}</p>
+  </div>
+</main>
+
+
+<!-- Modal -->
+<app-modal myid="modal1" title="Prima modale">
+  <p>Qui ci metto il testo della prima modale. Può essere anche roba molto lunga.</p>
+</app-modal>
+
+<app-modal myid="modal2" title="Seconda modale">
+  <p>Qui ci metto il testo della seconda modale.</p>
+  <p style="margin-top: 30em;">Facciamo una roba un po' altina</p>
+</app-modal>
+
+<app-modal myid="modal3" title="Terza modale">
+  <h2 class="text-center">Senza fantasia</h2>
+  <p>Qui ci metto il testo della terza modale. Non so proprio che metterci.</p>
+</app-modal>
+
+<app-modal myid="info" title="Info su questo esempio">
+  <p>Questo è uno degli esempi di applicazione dei framework di componenti per gli studenti di TW.</p>
+  <p class="small text-end">© Fabio Vitali, 2022</p>
+</app-modal>

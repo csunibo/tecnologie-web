@@ -49,14 +49,17 @@ JavaScript sono ridotte a mero zucchero sintattico).
 <head>
   <meta charset="utf-8" />
   <title>Hello world</title>
-  <link rel="stylesheet" href="https://www.fabiovitali.it/TW/lib/bootstrap.min.css" />
+  <link rel="stylesheet"
+    href="https://www.fabiovitali.it/TW/lib/bootstrap.min.css" />
   <script src="https://www.fabiovitali.it/TW/lib/jquery-3.6.0.js"></script>
   <script src="https://www.fabiovitali.it/TW/lib/bootstrap.js"></script>
 </head>
 
 <body>
   <div class="d-flex justify-content-around pb-5">
-    <img src="https://static.tacdn.com/img2/branding/homepage/home-tab2-hero-1367x520-prog.jpg" alt="" width="60%" />
+    <img
+      src="https://static.tacdn.com/img2/branding/homepage/home-tab2-hero-1367x520-prog.jpg"
+      alt="" width="60%" />
   </div>
   <nav class="navbar navbar-expand-lg pb-5">
     <div class="container-fluid">
@@ -65,26 +68,32 @@ JavaScript sono ridotte a mero zucchero sintattico).
           src="https://static.tacdn.com/img2/brand_refresh/special/pride_month_Tripadvisor_lockup_horizontal_secondary.svg"
           alt="" height="24" />
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+            <a class="nav-link text-dark" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
                 height="24" alt="" />Review</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+            <a class="nav-link text-dark" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
                 height="24" alt="" />Trips</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24"
-                alt="" />Alerts</a>
+            <a class="nav-link text-dark">
+              <img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+                height="24" alt="" />Alerts</a>
           </li>
           <li class="nav-item">
-            <button type="button" class="nav-link btn btn-dark text-white">Sign in</a>
+            <a class="nav-link">
+              <button type="button" class="nav-link btn btn-dark text-white">
+              Sign in</a>
           </li>
         </ul>
       </div>
@@ -92,34 +101,54 @@ JavaScript sono ridotte a mero zucchero sintattico).
   </nav>
   <div class="container-fluid pb-5">
     <div class="row">
-      <button type="button" class="d-flex justify-content-between col-2 btn btn-white border">
+      <button type="button"
+        class="d-flex justify-content-between col-2 btn btn-white border">
         <span class="p-2">Hotels</span>
-        <img class="p-2" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24" alt="" />
+        <img class="p-2"
+          src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          height="24" alt="" />
       </button>
-      <button type="button" class="d-flex justify-content-between col-2 btn btn-white border">
+      <button type="button"
+        class="d-flex justify-content-between col-2 btn btn-white border">
         <span class="p-2">Vacation Rentals</span>
-        <img class="p-2" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24" alt="" />
+        <img class="p-2"
+          src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          height="24" alt="" />
       </button>
-      <button type="button" class="d-flex justify-content-between col-2 btn btn-white border">
+      <button type="button"
+        class="d-flex justify-content-between col-2 btn btn-white border">
         <span class="p-2">Things to Do</span>
-        <img class="p-2" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24" alt="" />
+        <img class="p-2"
+          src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          height="24" alt="" />
       </button>
-      <button type="button" class="d-flex justify-content-between col-2 btn btn-white border">
+      <button type="button"
+        class="d-flex justify-content-between col-2 btn btn-white border">
         <span class="p-2">Restaurants</span>
-        <img class="p-2" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24" alt="" />
+        <img class="p-2"
+          src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          height="24" alt="" />
       </button>
-      <button type="button" class="d-flex justify-content-between col-2 btn btn-white border">
+      <button type="button"
+        class="d-flex justify-content-between col-2 btn btn-white border">
         <span class="p-2">Travel Forums</span>
-        <img class="p-2" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24" alt="" />
+        <img class="p-2"
+          src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          height="24" alt="" />
       </button>
-      <button type="button" class="d-flex justify-content-between col-2 btn btn-white border">
+      <button type="button"
+        class="d-flex justify-content-between col-2 btn btn-white border">
         <span class="p-2">More</span>
-        <img class="p-2" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" height="24" alt="" />
+        <img class="p-2"
+          src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          height="24" alt="" />
       </button>
     </div>
   </div>
   <div class="card text-center bg-dark text-white mb-5">
-    <img src="https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.webp" class="card-img" alt="">
+    <img
+      src="https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.webp"
+      class="card-img" alt="">
     <div class="card-img-overlay align-items-center">
       <input class="form-control mt-5 ml-5 mr-5" placeholder="Where to?">
       </input>
@@ -134,9 +163,11 @@ JavaScript sono ridotte a mero zucchero sintattico).
             class="card-img-top ratio rartio-1x1" alt="...">
           <div class="card-body">
             <p class="card-text">
-              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir</p>
+              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir
+            </p>
           </div>
-          <img class="p-2 position-absolute top-0 end-0" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          <img class="p-2 position-absolute top-0 end-0"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
             height="24" alt="" />
         </div>
       </div>
@@ -146,9 +177,11 @@ JavaScript sono ridotte a mero zucchero sintattico).
             class="card-img-top ratio rartio-1x1" alt="...">
           <div class="card-body">
             <p class="card-text">
-              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir</p>
+              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir
+            </p>
           </div>
-          <img class="p-2 position-absolute top-0 end-0" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          <img class="p-2 position-absolute top-0 end-0"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
             height="24" alt="" />
         </div>
       </div>
@@ -158,9 +191,11 @@ JavaScript sono ridotte a mero zucchero sintattico).
             class="card-img-top ratio rartio-1x1" alt="...">
           <div class="card-body">
             <p class="card-text">
-              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir</p>
+              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir
+            </p>
           </div>
-          <img class="p-2 position-absolute top-0 end-0" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          <img class="p-2 position-absolute top-0 end-0"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
             height="24" alt="" />
         </div>
       </div>
@@ -170,11 +205,14 @@ JavaScript sono ridotte a mero zucchero sintattico).
             class="card-img-top ratio rartio-1x1" alt="...">
           <div class="card-body">
             <p class="card-text">
-              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir</p>
+              The Lava Tunnell - Standard Lava Tunnel Tour - Raufarhólshellir
+            </p>
           </div>
-          <img class="p-2 position-absolute top-0 end-0" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          <img class="p-2 position-absolute top-0 end-0"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
             height="24" alt="" />
-          <img class="p-2 position-absolute top-50 end-0" src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
+          <img class="p-2 position-absolute top-50 end-0"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png"
             height="24" alt="" />
         </div>
       </div>

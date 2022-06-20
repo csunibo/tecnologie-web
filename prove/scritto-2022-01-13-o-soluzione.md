@@ -441,6 +441,9 @@ my:shot-of-love:
   my:include my:every-grain-of-sand.
 ```
 
+Il grafo, così come ho scelto di modellarlo, descrive sei entità, di cui quattro
+anonime.
+
 ## Domanda #5 - Domanda di accessibilità
 
 ```html

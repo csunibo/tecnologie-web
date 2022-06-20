@@ -251,68 +251,69 @@ identificativo il corrispettivo nome.
 <html>
 
 <head>
+  <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
   <h1>Pagina dei suggerimenti</h1>
   <h2>Suggerimenti pertinenti<h2>
-      <article id="1">
-        <h3 class="title"></h3>
-        <img class="picture"></img>
-        <p class="description">
+      <article>
+        <h3 id="title1"></h3>
+        <img id="picture1"></img>
+        <p id="description1">
         <p>
-        <p class="price"></p>
+        <p id="price1"></p>
       </article>
-      <article id="2">
-        <h3 class="title"></h3>
-        <img class="picture"></img>
-        <p class="description">
+      <article>
+        <h3 id="title2"></h3>
+        <img id="picture2"></img>
+        <p id="description2">
         <p>
-        <p class="price"></p>
+        <p id="price2"></p>
       </article>
-      <article id="3">
-        <h3 class="title"></h3>
-        <img class="picture"></img>
-        <p class="description">
+      <article>
+        <h3 id="title3"></h3>
+        <img id="picture3"></img>
+        <p id="description3">
         <p>
-        <p class="price"></p>
+        <p id="price3"></p>
       </article>
-      <article id="4">
-        <h3 class="title"></h3>
-        <img class="picture"></img>
-        <p class="description">
+      <article>
+        <h3 id="title4"></h3>
+        <img id="picture4"></img>
+        <p id="description4">
         <p>
-        <p class="price"></p>
+        <p id="price4"></p>
       </article>
       <h2>Suggerimenti meno pertinenti<h2>
           <!-- Ma che è un blocco esplorabile -->
-          <article id="5">
-            <h3 class="title"></h3>
-            <img class="picture"></img>
-            <p class="description">
+          <article>
+            <h3 id="title5"></h3>
+            <img id="picture5"></img>
+            <p id="description5">
             <p>
-            <p class="price"></p>
+            <p id="price5"></p>
           </article>
-          <article id="6">
-            <h3 class="title"></h3>
-            <img class="picture"></img>
-            <p class="description">
+          <article>
+            <h3 id="title6"></h3>
+            <img id="picture6"></img>
+            <p id="description6">
             <p>
-            <p class="price"></p>
+            <p id="price6"></p>
           </article>
-          <article id="7">
-            <h3 class="title"></h3>
-            <img class="picture"></img>
-            <p class="description">
+          <article>
+            <h3 id="title7"></h3>
+            <img id="picture7"></img>
+            <p id="description7">
             <p>
-            <p class="price"></p>
+            <p id="price7"></p>
           </article>
-          <article id="8">
-            <h3 class="title"></h3>
-            <img class="picture"></img>
-            <p class="description">
+          <article>
+            <h3 id="title8"></h3>
+            <img id="picture8"></img>
+            <p id="description8">
             <p>
-            <p class="price"></p>
+            <p id="price8"></p>
           </article>
           <h2>Nuova ricerca</h2>
           <form>
@@ -324,7 +325,7 @@ identificativo il corrispettivo nome.
               <select name="activity" id="newActivity">
               </select>
             </label>
-            <input type="submit" value="Cerca" />
+            <input type="submit" value="Cerca" id="newSearch"/>
           </form>
 </body>
 
@@ -333,7 +334,82 @@ identificativo il corrispettivo nome.
 
 ### Parte 3
 
-(TODO...)
+```javascript
+let place = 1,
+  activity = 1;
+
+function getSuggestions(placeId, activityId) {
+  fetch(
+    `http://www.fabiovitali.it/TW/test/2021/doResponse.php/places/${placeId}/activities/${activityId}/`,
+    { method: "GET" }
+  )
+    .then((response) => {
+      switch (response.status) {
+        case 400:
+          throw new Error("Non ho trovato abbastanza suggerimenti!");
+        case 404:
+          throw new Error("Errore di identificativi.");
+        default:
+          if (!response.ok) throw new Error(`Errore HTTP ${response.status}.`);
+          return response.json();
+      }
+    })
+    .then((json) => {
+      let ideas = json.ideas;
+      for (let i = 0; i < ideas.length; ++i) {
+        document.getElementById("title" + i).textContent = ideas[i].title;
+        document.getElementById("img" + i).src = ideas[i].img;
+        document.getElementById("description" + i).textContent =
+          ideas[i].description;
+        document.getElementById("price" + i).textContent =
+          "$ " + ideas[i].price;
+      }
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+}
+
+function getOptions() {
+  fetch(`http://www.fabiovitali.it/TW/test/2021/doResponse.php/ideas/`, {
+    method: "GET",
+  })
+    .then((response) => {
+      switch (response.status) {
+        default:
+          if (!response.ok) throw new Error(`Errore HTTP ${response.status}.`);
+          return response.json();
+      }
+    })
+    .then((json) => {
+      for (let i = 0; i < json.places; ++i)
+        document.getElementById("newPlace").innerHTML += `<option ${
+          json.places[i].id == place ? "selected" : ""
+        } value="${json.places[i].id}">${json.places[i].name}</option>`;
+      for (let i = 0; i < json.activities; ++i)
+        document.getElementById("newActivity").innerHTML += `<option ${
+          json.activities[i].id == activity ? "selected" : ""
+        } value="${json.activities[i].id}">${json.activities[i].name}</option>`;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+}
+
+function newSearch() {
+  getSuggestions(
+    (place = document.getElementById("newPlace").value),
+    (activity = document.getElementById("newActivity").value)
+  );
+  getOptions();
+}
+
+window.onload = () => {
+  getSuggestions(place, activity);
+  getOptions();
+  document.getElementById("newSearch").onclick = newSearch();
+};
+```
 
 ## Domanda #4 - Semantic Web
 

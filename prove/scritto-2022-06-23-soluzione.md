@@ -88,10 +88,18 @@ Quindi, salvo stili  ereditati da elementi genitori, viene scelto il colore pred
 ###	d)  Codifica caratteri
 Si faccia un esempio di una parola dell'italiano comune di almeno cinque lettere che abbia una lunghezza diversa in byte a seconda che venga condificata in ISO Latin 1, in UCS-2 o in UTF-8. Si specifichino anche le rispettive lunghezze. 
 ```
-da' (terza persona del verbo dare, si immagini ci sia un accento anziche' un apostrofo: ho la tastiera inglese).
+dà
 In UTF8 ha 1 + 2 = 3 byte
 In LATIN-1 ha 1 + 1 = 2 byte
 In UCS-2 ha ha 2 + 2 = 4 byte
+```
+Oppure, proposta di soluzione con una parola di almeno 5 lettere:
+```
+città
+In UTF8 ha 1+1+1+1+2 = 6 byte
+In LATIN-1 ha 1+1+1+1+1 = 5 byte
+In UCS-2 ha ha 2+2+2+2+2 = 10 byte
+
 ```
 
 \pagebreak

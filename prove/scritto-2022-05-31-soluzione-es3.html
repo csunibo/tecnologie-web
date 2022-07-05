@@ -1,0 +1,184 @@
+<!--Il codice non è funzionante ma dovrebbe piacere al prof in base a come corretto la prova del 2022-23-06 <3-->
+<!-- Parte I
+	Il protocollo è http o https.
+	1. Questa richiesta può essere fatta con metodo GET il cui formato può essere
+		/opere/
+		con filtri:
+			?author=<string>
+			?title=<string>
+			?year=<int>
+			?home=<string>
+		In caso di successo (200), la richiesta restituisce un file JSON contentente la lista di opere che soddisfano tutti i parametri dati in input
+		ciascuna con i relativi dati richiesti, ovvero nome, anno di uscita, casa discografica, genere e numero di copie.
+		Nel caso non ci sia nessuna opera che li soddisfa, restituisce una lista vuota.
+		
+		Se il valore dei parametri della query non sono ritenuti validi dal server (es. tipo incompatibile),
+		si restituisce un codice di errore (400)
+	2. Questa richiesta può essere fatta con metodo GET in formato 
+		/opere/{id_opera}/vinili/
+		In caso di successo (200), la richiesta restituisce in un file JSON la lista di ogni vinile disponibile del disco specificato,
+		specificando anche i dati di ogni vinile
+		Se non viene fornito il parametro che specifica l'id dell'opera, restituisce un errore 404.
+    	Se il parametro fornito che specifica l'id dell'opera è malformato (esempio: tipo incompatibile), restituisce un errore 400.
+	3. Questa richiesta può essere fatta con metodo PUT o DELETE in formato
+		/opere/{id_opera}/vinili/{id_vinile}/carrello
+		In caso di successo (200), la richiesta restituisce un file JSON con il carrello aggiornato con l'aggiunta o la rimozione
+		(in base al metodo usato) del vinile dato in input con i rispettivi dati di ciascuno.
+		Se non viene fornito il parametro che specifica l'id dell'opera o l'id del vinile, restituisce un errore 404.
+    	Se il parametro fornito che specifica l'id dell'opera o l'id del vinile è malformato (esempio: tipo incompatbile) restituisce un errore 400.
+-->
+<!--Scusate, le altre parti sono mescolate:/ -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  	<title>Bootstrap demo</title>
+  	<script type="text/javascript">
+  		function searchWork(){
+  			var title = document.getElementById("title").value;
+  			var author = document.getElementById("author").value;
+  			var year = document.getElementById("year").value;
+  			var home = document.getElementById("home").value;
+  			var url = `http://www.fabiovitali.it/TW/test/2021/doResponse.php/work?title=${title}?author=${author}?year=${year}?home=${home}`;
+  			fetch(url,{
+  				method: GET
+  			})
+  			.then((response) => {
+  				if(response.status != "200") throw new Error(`HTTP error ${response.status}`);
+  				return response.json;
+  			})
+  			.then((json) => {
+  				var results = document.getElementById("results").innerHTML;
+  				for(var work of json){
+  					results +=
+  						`<article>
+  							<h4>${work.title}</h4>
+  							<h5>Autore:${work.author}</h5>
+  							<p>Anno di uscita: ${work.year}</p>
+  							<p>Casa discografica: ${work.home}</p>
+  							<p>Stile: ${work.style}</p>
+  							<p>Numero copie: ${work.totalCopies}</p>
+  							<p>Immagini:</p>
+  							<img src="${work.img.path}">
+  							<div id="${work.title}More"></div>
+  							<button class="btn btn-secondary" type="button" onclick="showVynil(${work.title})">search Vynil</button>
+  						</article>;`
+  				}
+  			})
+  		}
+  		function showVynil(title){
+  			var url = `http://www.fabiovitali.it/TW/test/2021/doResponse.php/vynil?title=${title}`;
+  			fetch(url, {
+  				method: GET
+  			})
+  			.then((response) => {
+  				if(response.status != "200") throw new Error(`HTTP error: ${response.status}.`);
+  				return response.json;
+  			})
+  			.then((json) => {
+  				var div = document.getElementById(`${work.title}More)`).innerHTML;
+  				for(var vynil of json){
+  					div +=
+  						`<p>Prezzo: $ ${vynil.price}</p>
+  						<p>Stato: ${vynil.usage}</p>
+  						<p>Numero di copie disponibili: ${vynil.copies}</p>
+  						<p>Anno di produzione del vinile: ${vynil.productionYear}</p>
+  						<p>Nazione di produzione: ${vynil.nation}</p>;`
+  					for(var img of vynil.imgs){
+  						div += `<img src="${img.path}">`;
+  					}
+  					div += `<button class="btn btn-secondary" type="button" onclick="addToCart(${vynil.title})">Aggiungi al carrello</button>`;
+  				}
+  			})
+  		}
+  		
+  		function addToCart(vynil){
+  			var url = `http://www.fabiovitali.it/TW/test/2021/doResponse.php/cart?title=${title}`;
+  			fetch(url,{
+  				method: PUT
+  			})
+  			.then((response) => {
+  				if(response.status != "200") throw new Error(`HTTP error: ${response.status}.`);
+  				return response.json;
+  			})
+  			.then((json) => {
+  				alert("Vinile correttamente aggiunto al carrello!");
+  				showCart();
+  			})
+  			.catch((error) => {
+		      throw new Error(error);
+		   })
+  		}
+  		function removeFromCart(vynil){
+  			var url = `http://www.fabiovitali.it/TW/test/2021/doResponse.php/cart?title=${title}`;
+  			fetch(url,{
+  				method: DELETE
+  			})
+  			.then((response) => {
+  				if(response.status != "200") throw new Error(`HTTP error: ${response.status}.`);
+  				return response.json;
+  			})
+  			.then((json) => {
+  				alert("Vinile correttamente rimosso dal carrello!");
+  				showCart();
+  			})
+  			.catch((error) => {
+		      throw new Error(error);
+		   })
+  		}
+  		function showCart(){
+  			var url = "http://www.fabiovitali.it/TW/test/2021/doResponse.php/cart";
+  			fetch(url,{
+  				method: GET
+  			})
+  			.then((response) => {
+  				if(response.status != "200") throw new Error(`HTTP error: ${response.status}.`);
+  				return response.json;
+  			})
+  			.then((json) => {
+  				var cart = document.getElementById("cartSection").innerHTML;
+  				for(var vynil of json){
+  					cart+=
+  						`<h5>Titolo:${vynil.title}</h5>
+  						 <p>Autore:${vynil.author}</p>
+  						 <p>Anno di produzione del vinile: ${vynil.productionYear}</p>
+  						<p>Nazione di produzione: ${vynil.nation}</p>`;
+  					for(var img of vynil.imgs){
+  						cart += `img src= ${img.path}>`;
+  					}
+  				}
+  			})
+  		}
+	</script>
+</head>
+<body>
+	
+	<form class="m-3">
+  <div>
+    <label for="title" class="form-label">Titolo</label>
+    <input type="text" id="title" >
+  </div>
+  <div>
+    <label for="author" class="form-label">Autore</label>
+    <input type="text" id="author">
+  </div>
+  <div>
+    <label for="year" class="form-label">Anno di uscita</label>
+    <input type="text" id="year">
+  </div>
+  <div>
+    <label for="home" class="form-label">Casa discografica</label>
+    <input type="text" id="home">
+  </div>
+  <div id="results"></div><!--per ogni opera aggiungere: bottone per cercare vinili di ciascuna opera
+  	 									poi per ogni vinile il bottone per aggiungere al carrello-->
+  <div class="col-12">				
+    <button class="btn btn-primary" type="submit" onclick="searchWork()">search</button>
+  </div>
+</form>
+	<div id="cartSection"></div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

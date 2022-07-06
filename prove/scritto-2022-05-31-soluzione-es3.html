@@ -50,9 +50,9 @@
   				return response.json;
   			})
   			.then((json) => {
-  				var results = document.getElementById("results").innerHTML;
+  				var results = document.getElementById("results");
   				for(var work of json){
-  					results +=
+  					results.innerHTML +=
   						`<article>
   							<h4>${work.title}</h4>
   							<h5>Autore:${work.author}</h5>
@@ -78,18 +78,18 @@
   				return response.json;
   			})
   			.then((json) => {
-  				var div = document.getElementById(`${work.title}More)`).innerHTML;
+  				var div = document.getElementById(`${work.title}More)`);
   				for(var vynil of json){
-  					div +=
+  					div.innerHTML +=
   						`<p>Prezzo: $ ${vynil.price}</p>
   						<p>Stato: ${vynil.usage}</p>
   						<p>Numero di copie disponibili: ${vynil.copies}</p>
   						<p>Anno di produzione del vinile: ${vynil.productionYear}</p>
   						<p>Nazione di produzione: ${vynil.nation}</p>;`
   					for(var img of vynil.imgs){
-  						div += `<img src="${img.path}">`;
+  						div.innerHTML += `<img src="${img.path}">`;
   					}
-  					div += `<button class="btn btn-secondary" type="button" onclick="addToCart(${vynil.title})">Aggiungi al carrello</button>`;
+  					div.innerHTML += `<button class="btn btn-secondary" type="button" onclick="addToCart(${vynil.title})">Aggiungi al carrello</button>`;
   				}
   			})
   		}
@@ -138,15 +138,16 @@
   				return response.json;
   			})
   			.then((json) => {
-  				var cart = document.getElementById("cartSection").innerHTML;
+  				var cart = document.getElementById("cartSection");
+				cart.innerHTML = "";
   				for(var vynil of json){
-  					cart+=
+  					cart.innerHTML+=
   						`<h5>Titolo:${vynil.title}</h5>
   						 <p>Autore:${vynil.author}</p>
   						 <p>Anno di produzione del vinile: ${vynil.productionYear}</p>
   						<p>Nazione di produzione: ${vynil.nation}</p>`;
   					for(var img of vynil.imgs){
-  						cart += `img src= ${img.path}>`;
+  						cart.innerHTML += `img src= ${img.path}>`;
   					}
   				}
   			})

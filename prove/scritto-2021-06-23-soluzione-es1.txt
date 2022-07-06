@@ -1,0 +1,16 @@
+a)
+L'attributo id assegna un identificatore univoco ad un elemento che puo' poi
+essere usato per applicare stili (con query selector) o trovare facilmente
+l'elemento in javascript. D'altro lato l'attributo name indica il nome di un
+elemento input all'interno di un form e sara' usato per indentificare il valore
+di quell'elemento nella richiesta inviata dal form stesso.
+
+b)
+ISO-Latin-1 5 byte
+UCS-2 10 byte
+UTF-8 4+2 byte
+
+c)
+Mentre in una tassonomia le istanze sono collegate da relazioni solo tra elementi
+a livelli diversi, in un tesauro gli elementi possono avere anche relazioni tra
+valori dello stesso livello.

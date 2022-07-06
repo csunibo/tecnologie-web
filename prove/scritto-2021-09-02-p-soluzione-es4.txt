@@ -1,0 +1,32 @@
+@prefix foaf: <url>
+@prefix langid: <url>
+
+langid:language_sov
+  rdf:type langid:language
+  foaf:name "Lingua SOV"
+  foaf:sentences langid:sov_sentence
+
+langid:sov_sentence
+  rdf:type foaf:sentence
+  rdf:name "Frase SOV"
+  foaf:sentence_order langid:order_sov
+
+langid:order_sov
+  rdf:type langid:sentence_order
+  foaf:order (
+    [
+      rdf:type foaf:sentence_section
+      foaf:sentence_section_type sentence:subject
+      foaf:name "Subject"
+    ],
+    [
+      rdf:type foaf:sentence_section
+      foaf:sentence_section_type sentence:object
+      foaf:name "Oggetto"
+    ],
+    [
+      rdf:type foaf:sentence_section
+      foaf:sentence_section_type sentence:verb
+      foaf:name "Verbo"
+    ]
+  )

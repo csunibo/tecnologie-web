@@ -1,0 +1,36 @@
+"""
+Ivan Ivanovič Šiškin (Elabuga, 25 gennaio 1832 – San Pietroburgo, 20 marzo 1898) è stato un pittore russo associato al movimento dei Peredvižniki.
+"""
+
+@prefix foaf <iri>
+@prefix my <iri>
+
+my:Ivan_Ivanovic_Siskin
+	rdf:type foaf:Person
+	foaf:name "Ivan Ivanovič Šiškin"
+	foaf:nationality foaf:Russian
+	rdf:bith [
+		rdf:type foaf:Birth
+		foaf:place foaf:Elabuga
+		foaf:day "25"^^xsd:string
+		foaf:month foaf:January
+		foaf:year foaf:1832
+	]
+	rdf:death [
+		rdf:type foaf:Death
+		foaf:place foaf:StPetersburg
+		foaf:day "20"^^xsd:string
+		foaf:month foaf:March
+		foaf:year foaf:1898
+	]
+	rdf:jobs (
+		[
+			rdf:type foaf:Job
+			foaf:job_type foaf:Painter
+			foaf:art_movement my:Peredvizniki
+		]
+	)
+
+my:Peredvizniki
+	rdf:type foaf:ArtMovement
+	foaf:name "Peredvižniki"

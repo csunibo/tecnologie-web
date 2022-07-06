@@ -1,0 +1,20 @@
+"""
+Joseph Albert Morello (Springfield, 17 luglio 1928 – Irvington, 12 marzo 2011) è stato un batterista jazz statunitense.
+"""
+
+@prefix foaf
+@prefix my
+
+my:Joseph_Albert_Morello
+  rdf:type foaf:Person
+  foaf:name "Joseph Albert Morello"
+  foaf:birth_date "Springfield, 17 luglio 1928"
+  foaf:death_date "Irvington, 12 marzo 2011"
+  foaf:job my:jazz_drumer
+  foaf:birth_country "USA"
+
+my:jazz_drummer
+  rdf:type foaf:Job
+  foaf:name "Batterista Jazz"
+  foaf:job_kind foaf:musician
+  foaf:instrument foaf:drums

@@ -1,0 +1,1 @@
+OpenAPI consente di avere parametry nel body, nel query e nella path.

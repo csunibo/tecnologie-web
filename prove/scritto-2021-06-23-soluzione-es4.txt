@@ -1,0 +1,35 @@
+"""
+Gerhard van Wou, citato anche come Geert van Wou (Hintham, 1440 – Kampen, dicembre 1527), è stato un fonditore di campane olandese.
+"""
+
+@prefix foaf
+@prefix my
+
+my:GvW
+  rdf:type foaf:person
+  foaf:name "Gerhard van Wou"
+  foaf:cited_as "Geert van Wou"
+  foaf:birth_place foaf:Hintham
+  foaf:death_place foaf:Kampen
+  foaf:birth_date [
+    rdf:type foaf:date
+    foat:year "1440"^^xdf:int
+  ]
+  foaf:death_date [
+    rdf:type foaf:date
+    foat:year "1527"^^xdf:int
+  ]
+  foaf:country foaf:Holland
+  foaf:job [
+    rdf:type my:CF
+    foaf:job_status foaf:ended
+  ]
+
+my:CF
+  rdf:type foaf:job
+  foaf:name "Fonditore di campane"
+
+numero di triple:
+  GvW - 16
+  CF - 2
+  tot: 18

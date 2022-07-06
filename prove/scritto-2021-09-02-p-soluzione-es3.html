@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pasta con tonno</title>
+    <script>
+      window.addEventListener('load', async () => {
+              document.getElementById('closeButton1').addEventListener('click', () => {
+                      myModal.hide()
+                    })
+              document.getElementById('closeButton2').addEventListener('click', () => {
+                      editModal.hide()
+                    })
+              document.getElementById('editButton').addEventListener('click', () => {
+                      myModal.hide()
+                      editModal.show()
+                    })
+              const myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {})
+              const editModal = new bootstrap.Modal(document.getElementById('editModal'), {})
+              const dic = { 'prova': 'Quanto consente un\'opportuna verifica preliminare o di controllo: mettere, prendere in p.; lavoratore in p.; periodo di p.; banco di p.',
+                    'ciao': 'Voce confidenziale di saluto; anche come s.m. ( invar. ).',
+                    'test': 'Esperimento variamente espletato allo scopo di saggiare, mediante determinate reazioni, l\'entità o la consistenza di un\'attitudine o di una capacità individuale.'}
+              function apriDialogo(ele){
+                      myModal.show()
+                      console.log('val', ele.textContent)
+                      document.getElementById('exampleModalLabel').textContent = ele.textContent
+                      document.getElementById('exampleModalBody').textContent = dic[ele.textContent.split(' ')[0]]
+                      document.getElementById('floatingTextarea').textContent = dic[ele.textContent.split(' ')[0]]
+                      document.getElementById('editModalLabel').textContent = 'Cambia definizione: ' + ele.textContent
+                    }
+      
+              const text = document.getElementById('text')
+              const words = text.textContent.split(' ')
+              const filteredWords = words.filter(word => word.length >= n)
+              async function load() {
+                      const req = await fetch('http://site202100.tw.cs.unibo.it/cerca?parole=' + words.replace(',', ' ').join(','))
+                      const rawDic = req.json()
+                      for(const entry in rawDic)
+                        dic[entry.name] = entry.desc
+              }
+              // await load()
+                
+              text.textContent = ''
+              for(let i = 0; i < words.length; ++i) {
+                      const ele = document.createElement('span')
+                      ele.textContent = words[i] + ' '
+                      ele.addEventListener('click', () => apriDialogo(ele))
+                      text.insertBefore(ele, text.firstChild)
+                    }
+            })
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="#">Features</a>
+          <a class="nav-item nav-link" href="#">Pricing</a>
+          <a class="nav-item nav-link disabled" href="#">Disabled</a>
+        </div>
+      </div>
+    </nav>
+    <div>
+      <p id="text">test prova prova ciao ciao</p>
+
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">change me</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="exampleModalBody">
+            definizione
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closeButton1" class="btn">Close</button>
+            <button type="button" id="editButton" class="btn btn-primary">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">change me</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="Cambia la descrizione di una parola" id="floatingTextarea"></textarea>
+              <label for="floatingTextarea">Descrizione</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closeButton2" class="btn">Close</button>
+            <button type="button" id="closeButton" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html

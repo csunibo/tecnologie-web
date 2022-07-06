@@ -1,0 +1,147 @@
+<!--
+  GET /LoadEvents
+  RETURN
+  [
+  {
+  id: number
+  name: string
+  date: Date
+  }
+  ]
+  ERROR
+  500 - Internal Server Error
+  {
+  error: "Internal Server Error"
+  }
+
+  GET /SelectEvent
+  IN QUERY
+  {
+  id: number
+  }
+  RETURN
+  {
+  name: string
+  date: Date
+  startHour: "HH:MM"
+  performer: string
+  img: string
+  }
+  ERROR
+  500 - Internal Server Error
+  {
+  error: "Internal Server Error"
+  }
+  404 - Not Found
+  {
+  error: "The requested event does not exist"
+  }
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css" integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+      <label class="btn btn-outline-primary" for="btnradio1">Terminati</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio2">Live</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio3">Futuri</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio4">Citta</label>
+    </div>
+    <div class="events">
+
+    </div>
+    <template id="card">
+      <div class="card" style="width: 18rem;">
+        <img src="" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text"></p>
+          <a href="#" class="btn btn-primary"></a>
+        </div>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script>
+      let selected = 1, arr
+      function filter(ele1) {
+              switch(selected) {
+                      case 1:
+                        if(new Date() - ele1.date < 0)
+                          return false
+                        break;
+                      case 2:
+                        // controllo se sono live ?
+                        if(new Date() - ele1.date > 0)
+                          return false
+                        break;
+                      case 3:
+                        if(new Date() - ele1.date > 0)
+                          return false
+                        break;
+                      case 4:
+                        // citta ?
+                        if()
+                          return false
+                        break;
+                    }
+            }
+      function addEvent(template, event) {
+              const e = template.cloneNode(true)
+              e.querySelector('img').src = event.img
+              e.querySelector('img').alt = `Picture of the event: ${event.name}`
+              e.querySelector('.card-title').textContent = event.name
+              e.querySelector('.card-text').textContent = `L'evento si terra' il ${event.date} alle ${event.startHour}. Venite a vedere ${arr[i].performer}`
+              document.querySelector('.events').appendChild(e)
+            }
+
+      function repaint() {
+              arr.filter(filter).forEach(event => addEvent(template, event))
+            }
+
+      window.addEventListener('load', async () => {
+              let vec = []
+              vec[0] = 1
+              vec[1] = 2
+              vec[2] = 3
+              vec[3] = 4
+              vec.forEach(i => {
+                      const e = document.querySelector(`#btnradio${i}`)
+                      e.addEventListener('click', () => {
+                              document.querySelector(`#btnradio${selected}`).setAttribute('checked', false)
+                              e.setAttribute('checked', true)
+                              selected = i
+                            })
+                    })
+              console.log('onload')
+              const template = document.querySelector('#card').content;
+              try {
+                      const req = await fetch('/LoadEvents')
+                      const shows = await req.json()
+                      const reqs = await Promise.all(shows.map(show => fetch(`/SelectEvent?id=${show.id}`)))
+                      arr = await Promise.all(reqs.map(req => req.json()))
+                    } catch(e) {
+                            let err = document.createElement('h1')
+                            err.style.color = 'red'
+                            err.textContent = 'Error while fetching the data'
+                            document.querySelector('.events').appendChild(err)
+                          }
+            })
+    </script>
+  </body>
+</html>

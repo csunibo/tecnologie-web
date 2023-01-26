@@ -1,7 +1,7 @@
 # Discussione orale del progetto _Animal House_ (26 gennaio 2023)
 
-Questo documento spiega le domande effettuate alla discussione di [questo
-progetto](https://github.com/lucat1/unibo_88566_progetto).
+Il documento che segue riepiloga le domande effettuate alla discussione di
+**[questo progetto](https://github.com/lucat1/unibo_88566_progetto)**.
 
 Lo studente contatta prof e tutor in precedenza per posta elettronica e può
 scegliere se svolgerlo in presenza o a distanza. Nel nostro caso, abbiamo

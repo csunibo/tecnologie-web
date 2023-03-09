@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Sito esercizio: https://site212248.tw.cs.unibo.it/exercises/ex3 -->
+<html>
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+              }  
+        </style>
+    </head>
+    <body>
+        <h1>Form per le figure</h1>
+        <form action="https://www.fabiovitali.it/TW/DHDK/doResponse.php" method="get">
+          <label for="shape">Forma:</label>
+          <select id="shape" name="shape">
+            <option value="circle">Cerchio</option>
+            <option value="square">Quadrato</option>
+            <option value="triangle">Triangolo equilatero</option>
+          </select>
+        
+          <label for="dimension">Dimensione:</label>
+          <input type="number" id="dimension" name="dimension" min="1" max="100" required>
+        
+          <label for="background-color">Colore di sfondo:</label>
+          <input type="color" id="background-color" name="background-color" value="#ffffff">
+        
+          <label for="border-width">Spessore bordo:</label>
+          <input type="number" id="border-width" name="border-width" min="0" max="10">
+        
+          <label for="border-color">Colore bordo:</label>
+          <input type="color" id="border-color" name="border-color" value="#000000">
+        
+          <button type="submit">Genera</button>
+        </form>
+    </body>
+</html>

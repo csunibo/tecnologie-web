@@ -9,15 +9,15 @@
       
 ### Nome:   
 ```
-Giovanni
+
 ```
 ### Cognome:   
 ```
-Spadaccini
+
 ```
 ### Matricola:    
 ```
-0001021270
+
 ```
 ### Corso di Studi 
 ```
